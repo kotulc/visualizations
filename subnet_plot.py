@@ -1,5 +1,15 @@
 """
-Collection of data visualizations for neural networks
+subnet_plot defines the base objects and methods that enable component
+subplots to be combined, layered and animated with data from one or
+more sources.
+
+Component subplots may be updated on a step or sub-step schedule,
+meaning that select subplots can display information at different rates
+or resolutions depending on their source data sets. Components are
+added to the parent plot in layers (defaults to a single layer), and
+each layer is updated sequentially.
+
+See https://matplotlib.org/
 """
 
 
@@ -16,7 +26,7 @@ import numpy as np
 
 
 class SubnetPlot(object):
-    """Define base template row-column grid plot of subplot objects"""
+    """Define the parent figure which contains the plot and all subplot components"""
     def __init__(self, step_count, figure_size=None, gs_dim=4, gs_cols=1,
                  gs_rows=1, pause_intervals=(0.25, 0.0001),
                 substep_dim=1, window_title='Subnet Plot'):
@@ -27,6 +37,7 @@ class SubnetPlot(object):
             fig_height = min(9, gs_dim * gs_rows)
             figure_size = (fig_width, fig_height)
         self.figure = plt.figure(figsize=figure_size)
+        self.figure.canvas.set_window_title(window_title)
         self.cols, self.rows = gs_cols, gs_rows
         self.pause_intervals = pause_intervals
         # Setup template GridSpec based layout
@@ -34,15 +45,16 @@ class SubnetPlot(object):
             ncols=gs_cols, nrows=gs_rows, figure=self.figure, left=0.06,
             right=0.94, top=0.92, bottom=0.08, hspace=0.50, wspace=0.20
         )
+        # Track the maximum number of animation steps
         self.step_count = step_count
+        # Track the substep dimension shared between all subplots
         self.substep_dim = substep_dim
-        self.figure.canvas.set_window_title(window_title)
         # Plot dynamic components must be redrawn on each call to update()
         self.dynamic_components, self.layer_steps = [], []
         self.subplot_layers, self.component_layers = [], []
 
     def add_subplot(self, series_subplot, subplot_gspec, layer_idx=0):
-        """Initialize subplot_class with the series dict and add to plot"""
+        """Initialize the given subplot and add it to this plot at gspec"""
         # Series tuples include the subplot data, class and args
         series_dict, subplot_class, subplot_kwargs = series_subplot
         # Add the plot-wide substep dimension to the subplot dict
@@ -54,33 +66,42 @@ class SubnetPlot(object):
         if layer_idx >= len(self.subplot_layers):
             self.component_layers.append([])
             self.subplot_layers.append([])
-            # Layer specific update counts
+            # Layer specific update step tracking
             self.layer_steps.append(0)
             layer_idx = len(self.subplot_layers) - 1
         # Add subplot and the subplots dynamic components to the layer
         self.subplot_layers[layer_idx].append(sp_object)
+        # component_layers sorts object updates by layer
         self.component_layers[layer_idx].extend(sp_object.dynamic_components)
+        # dynamic_components tracks all plot objects that need to be updated
+        # this is necessary for the animate blit algorithm
         self.dynamic_components.extend(sp_object.dynamic_components)
 
     def update(self, step_idx):
-        """Call the update method of each subplot in the selected layer"""
-        # Update the subplots contained in each layer
+        """Update each layer iteratively based on the step index"""
+        # If this is the first animation step...
         if step_idx == 0:
+            # Update all subplot components for proper display
             for layer in self.subplot_layers:
                 for subplot in layer:
                     subplot.update(0)
             return self.dynamic_components
         else:
             substep_flag = False
+            # step_offset tracks complete step cycles when substep_dim > 1
             step_offset = step_idx // self.substep_dim
+            # Calculate the layer index to be updated
             layer_idx = step_offset % len(self.subplot_layers)
+            # Update all components from the selected layer
             for subplot in self.subplot_layers[layer_idx]:
                 subplot.update(self.layer_steps[layer_idx])
                 if subplot.substep_idx:
                     substep_flag = True
             if substep_flag:
+                # Pause the animation during substeps
                 plt.pause(self.pause_intervals[1])
             if step_idx % self.substep_dim == 0:
+                # Pause the animation at the beginning of each step cycle
                 plt.pause(self.pause_intervals[0])
             self.layer_steps[layer_idx] += 1
             return self.component_layers[layer_idx]
@@ -124,7 +145,7 @@ class SampleColumnPlot(SubnetPlot):
 
 
 class SampleRowPlot(SubnetPlot):
-    """Sample row-prime composite plot"""
+    """Sample row-prime composite plot with substep indexing"""
     def __init__(self, plot_steps):
         substep_dim = 32
         step_count = plot_steps * substep_dim
@@ -225,9 +246,9 @@ class SubnetSubplot(object):
         self.dynamic_components = []
 
     def add_legend(self, label_columns=None):
+        """Add a legend to the upper right corner of this subplot"""
         if label_columns is None:
             label_columns = len(self.series_arrays)
-        # bbox_to_anchor=(1.01, 1.14)
         self.subplot_axes.legend(
             fontsize=6, frameon=False, loc='upper right',
             ncol=label_columns
@@ -248,7 +269,7 @@ class SubnetSubplot(object):
 
 
 class SubplotBar(SubnetSubplot):
-    """Display array data points from data_series_dict as a bar plot"""
+    """A bar subplot displaying elements with the assigned colormap"""
     def __init__(self, data_series_dict, subplot_axes, subplot_kwargs):
         series_arrays = data_series_dict['arrays']
         super().__init__(series_arrays, subplot_axes, **subplot_kwargs)
@@ -283,6 +304,7 @@ class SubplotBar(SubnetSubplot):
 
 
 class SubplotLine(SubnetSubplot):
+    """A line subplot with the ability to display bar plots in the background"""
     def __init__(self, data_series_dict, subplot_axes, subplot_kwargs):
         self.bar_series_count = data_series_dict['bar_count']
         self.series_dict = data_series_dict
@@ -353,6 +375,7 @@ class SubplotLine(SubnetSubplot):
 
 
 class SubplotMatrix(SubnetSubplot):
+    """An image subplot with optional left and top display axes"""
     def __init__(self, data_series_dict, subplot_axes, subplot_kwargs):
         self.center_array = data_series_dict['center_array']
         self.left_array = data_series_dict['left_array']
@@ -365,7 +388,9 @@ class SubplotMatrix(SubnetSubplot):
         self.substep_count = 1
         if self.substep_idx:
             # Calculate the number of animation steps in each substep
-            self.substep_count = series_arrays[0].shape[2] // self.substep_dim
+            self.substep_count = int(
+                np.ceil(series_arrays[0].shape[2] / self.substep_dim)
+            )
         subplot_axes.set_title(
             subplot_kwargs['x_label'], fontdict={'fontsize': 'small'}, pad=20
         )
@@ -414,15 +439,15 @@ class SubplotMatrix(SubnetSubplot):
         if self.substep_idx:
             # If substep indexing is enabled, adjust step array indexing
             substep_idx = step_idx % self.substep_dim
-            outerstep_idx = step_idx // self.substep_dim
+            sample_idx = step_idx // self.substep_dim
             start_idx = substep_idx * self.substep_count
             end_idx = start_idx + self.substep_count
-            step_array = self.center_array[outerstep_idx, :, start_idx:end_idx]
+            step_array = self.center_array[sample_idx, :, start_idx:end_idx]
             if step_idx % self.substep_dim == 0:
                 self.center_buffer *= 0
             if step_idx % self.substep_dim == self.substep_dim - 1:
                 # Fill in the rest of the matrix on the final step
-                step_array = self.center_array[outerstep_idx, :, start_idx:]
+                step_array = self.center_array[sample_idx, :, start_idx:]
                 self.center_buffer[:, start_idx:] = step_array
             else:
                 self.center_buffer[:, start_idx:end_idx] = step_array
@@ -443,6 +468,7 @@ class SubplotMatrix(SubnetSubplot):
 
 
 class SubplotText(SubnetSubplot):
+    """A text subplot including the primary table and optional row readouts"""
     def __init__(self, data_series_dict, subplot_axes, subplot_kwargs):
         self.table_row_count = data_series_dict['table_row_count']
         series_arrays = data_series_dict['arrays']
@@ -662,15 +688,6 @@ def color_map_list(value_max, cmap_id='gnuplot', value_min=0):
     return [cmap(norm(v)) for v in value_array]
 
 
-def input_delta_sum(data_dict, layer_key, input_keys):
-    """Return the step-wise normalized delta input sum array"""
-    input_array = data_dict[layer_key][input_keys[0]][input_keys[1]]
-    # Offset the array by a single step and take the sum of the abs difference
-    input_offset = np.vstack((input_array[0, :], input_array[:-1, :]))
-    input_delta = np.sum(np.abs(input_offset - input_array), axis=1)
-    return input_delta / input_array.shape[1]
-
-
 # ----------------------- Display sample plots ------------------------
 
 
@@ -735,7 +752,7 @@ def add_sample_text_subplot(parent_plot, plot_gs, plot_steps, layer_idx=0):
 
 
 def display_plot(subnet_plot, static_plot=True):
-    """Display and optionally animate subnet_plot"""
+    """Display, and optionally animate subnet_plot"""
     if static_plot:
         display_plot_static(subnet_plot)
     else:
@@ -743,7 +760,7 @@ def display_plot(subnet_plot, static_plot=True):
 
 
 def display_plot_static(subnet_plot):
-    """Manually update all plot components to step_idx"""
+    """Display the plot with data points drawn at its final index"""
     subnet_plot.draw(step_idx=subnet_plot.step_count - 1)
     plt.show()
 
@@ -758,7 +775,8 @@ def display_plot_steps(subnet_plot):
 
 
 def display_sample_plots(plot_steps, static=True):
-    """Display a dynamic plot from data_dict"""
+    """Display a series of sample plots and plot components"""
+    #
     # Display a bar plot
     sample_plot = SubnetPlot(plot_steps)
     add_sample_bar_subplot(
@@ -798,17 +816,17 @@ def display_sample_plots(plot_steps, static=True):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-static', default='0', required=False,
-        help='(0, 1): Display static plot containing steps data points'
+        '-a', '--animate', default='1', required=False,
+        help='(0, 1): Enable or disable plot animation.'
     )
     parser.add_argument(
-        '-steps', default='10', required=False,
+        '-s', '--steps', default='25', required=False,
         help='int: Random sample data points to plot'
     )
     input_args = parser.parse_args()
-    print('subnet_plot: display plot...')
+    print('subnet_plot: display sample plots...')
     # Display a sample plot with the given arguments
-    display_sample_plots(int(input_args.steps), bool(int(input_args.static)))
+    display_sample_plots(int(input_args.steps), bool(int(input_args.animate)))
     print('subnet_plot: process complete.')
 
 

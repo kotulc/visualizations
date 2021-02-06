@@ -1,11 +1,14 @@
 """
-Visualize the network data in an animated or static plot
+A Collection of data visualizations for neural networks implemented
+with the subnet_plot module. This module may be used as an example of
+ways to combine and animate the base components from subnet_plot.
 """
 
 
 import argparse
 import matplotlib.gridspec as gs
 import numpy as np
+import subnet_io as io
 import subnet_plot as sp
 
 
@@ -471,6 +474,15 @@ def extend_block_array(block_array, block_steps):
         end_idx = start_idx + block_steps
         new_array[start_idx:end_idx] = block_array[row_idx]
     return new_array
+
+
+def input_delta_sum(data_dict, layer_key, input_keys):
+    """Return the step-wise normalized delta input sum array"""
+    input_array = data_dict[layer_key][input_keys[0]][input_keys[1]]
+    # Offset the array by a single step and take the sum of the abs difference
+    input_offset = np.vstack((input_array[0, :], input_array[:-1, :]))
+    input_delta = np.sum(np.abs(input_offset - input_array), axis=1)
+    return input_delta / input_array.shape[1]
 
 
 def ooc_target_array(data_dict):
