@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Python API &mdash; Visualizations 0.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command Line Options" href="cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Visualizations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Programmer Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-subnet_plot">subnet_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subnet_visualize">subnet_visualize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subnet_animate">subnet_animate</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Visualizations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Python API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h1>
+<p>Getting started with this project is easy.
+The main class you need to care about is <a class="reference internal" href="#subnet_plot.SubnetPlot" title="subnet_plot.SubnetPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">subnet_plot.SubnetPlot</span></code></a></p>
+<div class="section" id="module-subnet_plot">
+<span id="subnet-plot"></span><h2>subnet_plot<a class="headerlink" href="#module-subnet_plot" title="Permalink to this headline">¶</a></h2>
+<p>subnet_plot defines the base objects and methods that enable component
+subplots to be combined, layered and animated with data from one or
+more sources.</p>
+<p>Component subplots may be updated on a step or sub-step schedule,
+meaning that select subplots can display information at different rates
+or resolutions depending on their source data sets. Components are
+added to the parent plot in layers (defaults to a single layer), and
+each layer is updated sequentially.</p>
+<p>See <a class="reference external" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
+<dl class="py class">
+<dt id="subnet_plot.SampleColumnPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SampleColumnPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SampleColumnPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample column-prime composite plot with substep indexing</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SampleRowPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SampleRowPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SampleRowPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample row-prime composite plot with substep indexing</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubnetPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubnetPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_count</span></em>, <em class="sig-param"><span class="n">figure_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gs_dim</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">gs_cols</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">gs_rows</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">pause_intervals</span><span class="o">=</span><span class="default_value">(0.25, 0.0001)</span></em>, <em class="sig-param"><span class="n">substep_dim</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">window_title</span><span class="o">=</span><span class="default_value">'Subnet Plot'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the parent figure which contains the plot and all subplot components</p>
+<dl class="py method">
+<dt id="subnet_plot.SubnetPlot.add_subplot">
+<code class="sig-name descname">add_subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series_subplot</span></em>, <em class="sig-param"><span class="n">subplot_gspec</span></em>, <em class="sig-param"><span class="n">layer_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetPlot.add_subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the given subplot and add it to this plot at gspec</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="subnet_plot.SubnetPlot.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetPlot.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all subplot components to display step_idx data points</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="subnet_plot.SubnetPlot.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetPlot.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update each layer iteratively based on the step index</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubnetSubplot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubnetSubplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series_arrays</span></em>, <em class="sig-param"><span class="n">subplot_axes</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">'on'</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">substep_dim</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">x_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_lim</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">y_line</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_log</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetSubplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base axes style, layout, and options for component subplots</p>
+<dl class="py method">
+<dt id="subnet_plot.SubnetSubplot.add_legend">
+<code class="sig-name descname">add_legend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label_columns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetSubplot.add_legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a legend to the upper right corner of this subplot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="subnet_plot.SubnetSubplot.step_array">
+<code class="sig-name descname">step_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">series_array</span></em>, <em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetSubplot.step_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the selected array with the given indexing pattern</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="subnet_plot.SubnetSubplot.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubnetSubplot.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all dynamic elements in this subplot</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubplotBar">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubplotBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_series_dict</span></em>, <em class="sig-param"><span class="n">subplot_axes</span></em>, <em class="sig-param"><span class="n">subplot_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bar subplot displaying elements with the assigned colormap</p>
+<dl class="py method">
+<dt id="subnet_plot.SubplotBar.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotBar.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all dynamic elements in this subplot</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubplotLine">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubplotLine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_series_dict</span></em>, <em class="sig-param"><span class="n">subplot_axes</span></em>, <em class="sig-param"><span class="n">subplot_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>A line subplot with the ability to display bar plots in the background</p>
+<dl class="py method">
+<dt id="subnet_plot.SubplotLine.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotLine.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all dynamic elements in this subplot</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubplotMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubplotMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_series_dict</span></em>, <em class="sig-param"><span class="n">subplot_axes</span></em>, <em class="sig-param"><span class="n">subplot_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>An image subplot with optional left and top display axes</p>
+<dl class="py method">
+<dt id="subnet_plot.SubplotMatrix.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotMatrix.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all dynamic components of this object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_plot.SubplotText">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">SubplotText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_series_dict</span></em>, <em class="sig-param"><span class="n">subplot_axes</span></em>, <em class="sig-param"><span class="n">subplot_kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotText" title="Permalink to this definition">¶</a></dt>
+<dd><p>A text subplot including the primary table and optional row readouts</p>
+<dl class="py method">
+<dt id="subnet_plot.SubplotText.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">step_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.SubplotText.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all row and column cell data for this subplot</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.add_sample_bar_subplot">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">add_sample_bar_subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_plot</span></em>, <em class="sig-param"><span class="n">plot_gs</span></em>, <em class="sig-param"><span class="n">plot_steps</span></em>, <em class="sig-param"><span class="n">bar_count</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">layer_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.add_sample_bar_subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a sample bar subplot to parent_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.add_sample_line_subplot">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">add_sample_line_subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_plot</span></em>, <em class="sig-param"><span class="n">plot_gs</span></em>, <em class="sig-param"><span class="n">plot_steps</span></em>, <em class="sig-param"><span class="n">layer_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.add_sample_line_subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a sample line subplot to parent_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.add_sample_matrix_subplot">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">add_sample_matrix_subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_plot</span></em>, <em class="sig-param"><span class="n">plot_gs</span></em>, <em class="sig-param"><span class="n">plot_steps</span></em>, <em class="sig-param"><span class="n">layer_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.add_sample_matrix_subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a sample matrix subplot to parent_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.add_sample_text_subplot">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">add_sample_text_subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_plot</span></em>, <em class="sig-param"><span class="n">plot_gs</span></em>, <em class="sig-param"><span class="n">plot_steps</span></em>, <em class="sig-param"><span class="n">layer_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.add_sample_text_subplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a sample text subplot to parent_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.bar_series">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">bar_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bar_array_dict</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">x_label</span></em>, <em class="sig-param"><span class="n">y_label</span></em>, <em class="sig-param"><span class="n">color_map</span><span class="o">=</span><span class="default_value">'gnuplot_r'</span></em>, <em class="sig-param"><span class="n">secondary_array_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">y_line</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_log</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.bar_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bar plot data series of the form (data_dict, class, kwargs)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.color_map_list">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">color_map_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value_max</span></em>, <em class="sig-param"><span class="n">cmap_id</span><span class="o">=</span><span class="default_value">'gnuplot'</span></em>, <em class="sig-param"><span class="n">value_min</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.color_map_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of color values from value_min to value_max</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.display_plot">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">display_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">static_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.display_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display, and optionally animate subnet_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.display_plot_static">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">display_plot_static</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subnet_plot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.display_plot_static" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the plot with data points drawn at its final index</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.display_plot_steps">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">display_plot_steps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subnet_plot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.display_plot_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through step_count plot component updates</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.display_sample_plots">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">display_sample_plots</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot_steps</span></em>, <em class="sig-param"><span class="n">static</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.display_sample_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a series of sample plots and plot components</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.line_bar_series">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">line_bar_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line_array_dict</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">x_label</span></em>, <em class="sig-param"><span class="n">y_label</span></em>, <em class="sig-param"><span class="n">bar_array_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">color_map</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">x_limit</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">y_line</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_log</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.line_bar_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a overlaid line plot of the form (data_dict, class, kwargs)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.line_series">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">line_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line_array_dict</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">x_label</span></em>, <em class="sig-param"><span class="n">y_label</span></em>, <em class="sig-param"><span class="n">color_map</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="n">secondary_array_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">secondary_color_map</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">x_limit</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">y_line</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_log</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.line_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a line plot data series of the form (data_dict, class, kwargs)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.matrix_series">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">matrix_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix_array</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">center_color_map</span><span class="o">=</span><span class="default_value">'plasma'</span></em>, <em class="sig-param"><span class="n">left_array</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">left_color_map</span><span class="o">=</span><span class="default_value">'magma'</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">top_array</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">top_color_map</span><span class="o">=</span><span class="default_value">'magma'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.matrix_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a matrix image series with optional left and top bar arrays</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_plot.text_series">
+<code class="sig-prename descclassname">subnet_plot.</code><code class="sig-name descname">text_series</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_table_dict</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">labels</span></em>, <em class="sig-param"><span class="n">substep_idx</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">text_col_dict</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_plot.text_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a text plot data series of the form (data_dict, class, kwargs)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-subnet_visualize">
+<span id="subnet-visualize"></span><h2>subnet_visualize<a class="headerlink" href="#module-subnet_visualize" title="Permalink to this headline">¶</a></h2>
+<p>A Collection of data visualizations for neural networks implemented
+with the subnet_plot module. This module may be used as an example of
+ways to combine and animate the base components from subnet_plot.</p>
+<dl class="py class">
+<dt id="subnet_visualize.ActivationPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">ActivationPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_keys</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.ActivationPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each layer column contains feedback, activations and readout rows</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_visualize.LayerPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">LayerPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_keys</span></em>, <em class="sig-param"><span class="n">primary_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.LayerPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a 3 row plot with line, matrix, and bar rowplots</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_visualize.LossPlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">LossPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.LossPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a 3 row plot with line, matrix, and bar rowplots</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="subnet_visualize.NodePlot">
+<em class="property">class </em><code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">NodePlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.NodePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a 3 row plot with line, matrix, and bar rowplots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.activation_readout_colplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">activation_readout_colplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.activation_readout_colplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a 3 rowed column activation plot to subnet_plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.bar_delta_overlaid_dicts">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">bar_delta_overlaid_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">primary_key</span></em>, <em class="sig-param"><span class="n">secondary_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em>, <em class="sig-param"><span class="n">step_delta</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.bar_delta_overlaid_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bar graph with secondary_array overlaid with the primary_array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.bar_overlaid_dicts">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">bar_overlaid_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">primary_key</span></em>, <em class="sig-param"><span class="n">secondary_key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.bar_overlaid_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an overlaid bar graph with input, activations and potentials</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.basic_stats_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">basic_stats_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.basic_stats_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the selected, min, max, mean of all data_dict array values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.block_to_step_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">block_to_step_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">block_steps</span></em>, <em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.block_to_step_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert all arrays from block-based arrays to step-based</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.input_delta_sum">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">input_delta_sum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em>, <em class="sig-param"><span class="n">input_keys</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.input_delta_sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the step-wise normalized delta input sum array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.layer_activation_step_rowplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">layer_activation_step_rowplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_keys</span></em>, <em class="sig-param"><span class="n">primary_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.layer_activation_step_rowplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a plot containing activation and potential line subplots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.layer_image_readout_colplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">layer_image_readout_colplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.layer_image_readout_colplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a plot containing input, weight and step subplots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.layer_weight_step_colplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">layer_weight_step_colplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">layer_key</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.layer_weight_step_colplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 2-row column plot containing weight matrix and input plots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.line_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">line_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">array_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.line_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of lines and a step segmentation dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.line_mean_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">line_mean_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">primary_key</span></em>, <em class="sig-param"><span class="n">mean_line</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">selected_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.line_mean_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of lines and a step segmentation dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.line_weight_delta_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">line_weight_delta_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">array_keys</span></em>, <em class="sig-param"><span class="n">array_subkey</span></em>, <em class="sig-param"><span class="n">delta_steps</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.line_weight_delta_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the difference between array_subkey offset by block_steps</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.node_input_block_rowplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">node_input_block_rowplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">focus_key</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.node_input_block_rowplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a plot containing input, weight and step subplots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.node_potential_block_rowplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">node_potential_block_rowplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">focus_key</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.node_potential_block_rowplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a plot containing activation and potential line subplots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.node_weight_block_rowplot">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">node_weight_block_rowplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">focus_key</span></em>, <em class="sig-param"><span class="n">subnet_plot</span></em>, <em class="sig-param"><span class="n">subplot_spec</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em>, <em class="sig-param"><span class="n">step_delta</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.node_weight_block_rowplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a plot containing a single weight subplot for the selected index</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.ooc_target_array">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">ooc_target_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.ooc_target_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a mask array with single out-of-class target selections</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.sample_seg_array">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">sample_seg_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_steps</span></em>, <em class="sig-param"><span class="n">block_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.sample_seg_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a binary segmentation array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.sample_sigma_arrays">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">sample_sigma_arrays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.sample_sigma_arrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the in-class and mean gain arrays</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.segmentation_dict">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">segmentation_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_dict</span></em>, <em class="sig-param"><span class="n">segment_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.segmentation_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a segmented array of array_steps length with matching dimensions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.table_row_readout_dicts">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">table_row_readout_dicts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">focus_key</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.table_row_readout_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the text dictionary and column labels for the text subplot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.visualize_data">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">visualize_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em>, <em class="sig-param"><span class="n">plot_type</span></em>, <em class="sig-param"><span class="n">selected_idx</span></em>, <em class="sig-param"><span class="n">selected_key</span></em>, <em class="sig-param"><span class="n">static_plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.visualize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize all elements in data_dict in a single combined plot</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="subnet_visualize.weight_matrix_arrays">
+<code class="sig-prename descclassname">subnet_visualize.</code><code class="sig-name descname">weight_matrix_arrays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#subnet_visualize.weight_matrix_arrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weight matrix and arrays for the matrix subplot</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-subnet_animate">
+<span id="subnet-animate"></span><h2>subnet_animate<a class="headerlink" href="#module-subnet_animate" title="Permalink to this headline">¶</a></h2>
+<p>Display matplotlib based animations from neural network data</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="cli.html" class="btn btn-neutral float-left" title="Command Line Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, CLayton Kotulak.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

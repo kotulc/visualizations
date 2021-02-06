@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Getting Started &mdash; Visualizations 0.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Project Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Visualizations
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subplot-components">Subplot Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bar-subplot">Bar subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#line-subplot">Line subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matrix-subplot">Matrix subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text-subplot">Text subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#layouts-and-gridspec">Layouts and gridspec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#styles-and-color-maps">Styles and color maps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Programmer Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Visualizations</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Before using this framework, it is strongly suggested that you start by familiarizing yourself with Matplotlib’s pyplot interface using the following <a class="reference external" href="https://matplotlib.org/3.1.1/tutorials/introductory/pyplot.html">Matplotlib</a> tutorial.</p>
+<p>For ease of use, it is recommended that you setup a virtual environment to install and run this framework.</p>
+<p>If you haven’t worked with virtual envionrmnets before, you may use a platform like <a class="reference external" href="https://docs.anaconda.com/">Anaconda or Miniconda</a></p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Use the included requirements.txt to install all required dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Alternatively, if you want to run just the base subnet_plot module, you may be able to simply install Matplotlib:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">Matplotlib</span>
+</pre></div>
+</div>
+<p>Once you have installed the dependencies you can run some sample animations by calling subnet_plot. See <a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> for more details.</p>
+</div>
+<div class="section" id="subplot-components">
+<h2>Subplot Components<a class="headerlink" href="#subplot-components" title="Permalink to this headline">¶</a></h2>
+<p>A small selection of custom components are included to serve as an example of how to implement Matplotlib objects into this framework.  See below for a brief description of each class along with links to the relevant Matplotlib documentation.</p>
+<img alt="_images/line_bar_plot.png" src="_images/line_bar_plot.png" />
+<p>Above, a simple combined bar and line plot from <code class="xref py py-meth docutils literal notranslate"><span class="pre">display_sample_plots()</span></code>.</p>
+<div class="section" id="bar-subplot">
+<h3>Bar subplot<a class="headerlink" href="#bar-subplot" title="Permalink to this headline">¶</a></h3>
+<p>The bar subplot displays primary elements using the supplied colormap while displaying the optional secondary elements in grayscale.</p>
+<img alt="_images/bar_plot.png" src="_images/bar_plot.png" />
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SubplotBar</span></code> component is based on the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.bar.html">Matplotlib bar</a> object.</p>
+</div>
+<div class="section" id="line-subplot">
+<h3>Line subplot<a class="headerlink" href="#line-subplot" title="Permalink to this headline">¶</a></h3>
+<p>The line subplot combines the basic line and bar plots. The optional bar data source is rendered behind the primary line data.</p>
+<img alt="_images/line_plot.png" src="_images/line_plot.png" />
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SubplotLine</span></code> component is based on the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.plot.html">Matplotlib plot</a> object.</p>
+</div>
+<div class="section" id="matrix-subplot">
+<h3>Matrix subplot<a class="headerlink" href="#matrix-subplot" title="Permalink to this headline">¶</a></h3>
+<p>The matrix subplot renders a 2-dimensional array in sequential steps with optional 1-dimensional arrays affixed to the left and top sides of the central matrix.</p>
+<img alt="_images/matrix_plot.png" src="_images/matrix_plot.png" />
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SubplotMatrix</span></code> component is based on the <a class="reference external" href="https://matplotlib.org/api/image_api.html">Matplotlib image</a> object. Also see <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.imshow.html">imshow</a>.</p>
+</div>
+<div class="section" id="text-subplot">
+<h3>Text subplot<a class="headerlink" href="#text-subplot" title="Permalink to this headline">¶</a></h3>
+<p>The text subplot displays data using a text-based readout. The primary data source is rendered within a table, while a secondary data source is displayed in rows below the primary table.</p>
+<img alt="_images/text_plot.png" src="_images/text_plot.png" />
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SubplotText</span></code> component is based on the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.table.html">Matplotlib table</a> object.</p>
+</div>
+<div class="section" id="layouts-and-gridspec">
+<h3>Layouts and gridspec<a class="headerlink" href="#layouts-and-gridspec" title="Permalink to this headline">¶</a></h3>
+<p>The figure’s grid-based layout is defined by the gridspec object passed to <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_subplot()</span></code> when adding subplot objects to the parent SubnetPlot.</p>
+<img alt="_images/combined_plot.png" src="_images/combined_plot.png" />
+<p>For a complete description of Matplotlib’s gridspec please take a look at the <a class="reference external" href="https://matplotlib.org/3.1.1/tutorials/intermediate/gridspec.html">tutorial</a>.</p>
+</div>
+<div class="section" id="styles-and-color-maps">
+<h3>Styles and color maps<a class="headerlink" href="#styles-and-color-maps" title="Permalink to this headline">¶</a></h3>
+<p>Each subplot component’s style is defined by the tempalte SubnetSubplot class. Colormaps are used extensively to render plot elements. See the <a class="reference external" href="https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html">colormap</a> reference for valid values.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="Project Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, CLayton Kotulak.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
